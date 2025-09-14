@@ -33,10 +33,10 @@ export default function PremiumBackground({
   }, [enableParallax]);
 
   const backgroundImages = {
-    hero: "/images/library-hero-bg.jpg",
-    section: "/images/library-section-bg.jpg",
-    dark: "/images/dark-wood-bg.jpg",
-    map: "/images/west-orange-map-1911.jpg"
+    hero: "/library-dispensary-preview/images/library-hero-bg.jpg",
+    section: "/library-dispensary-preview/images/library-section-bg.jpg",
+    dark: "/library-dispensary-preview/images/dark-wood-bg.jpg",
+    map: "/library-dispensary-preview/images/west-orange-map-1911.jpg"
   };
 
   const parallaxOffset = enableParallax ? scrollY * 0.5 : 0;
