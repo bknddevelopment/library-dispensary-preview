@@ -6,7 +6,14 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function getAssetPath(path: string): string {
-  // No basePath needed for custom domain
+  // Use basePath for GitHub Pages subdirectory deployment
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '/library-dispensary-preview';
+
+  // Handle absolute paths
+  if (path.startsWith('/')) {
+    path = `${basePath}${path}`;
+  }
+
   // Add cache-busting query parameter for logo to force refresh
   // Using fixed version to allow proper caching after initial refresh
   if (path.includes('the-library-logo.png')) {

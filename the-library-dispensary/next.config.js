@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  // No basePath or assetPrefix needed for custom domain
+  basePath: '/library-dispensary-preview',
+  assetPrefix: '/library-dispensary-preview',
   images: {
     unoptimized: true
   },
