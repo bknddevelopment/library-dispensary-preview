@@ -30,7 +30,7 @@ const galleryItems: ArtworkItem[] = [
     description: "A dynamic abstract piece capturing the fluidity and energy of movement through vibrant colors and bold strokes, representing the rhythm of life and nature.",
     category: "Contemporary",
     featured: true,
-    image: "/images/gallery/Rhythm%20in%20Motion.png"
+    image: "/library-dispensary-preview/images/gallery/Rhythm%20in%20Motion.png"
   },
   {
     id: 2,
@@ -43,7 +43,7 @@ const galleryItems: ArtworkItem[] = [
     description: "Seurat's revolutionary pointillist masterpiece depicting Parisian bourgeois leisure on the Seine. This Neo-Impressionist work pioneered the technique of divisionism, using pure color dots to create luminous effects and capture the essence of light.",
     category: "Historical",
     featured: true,
-    image: "/images/gallery/Georges%20Seurat%2C%20A%20Sunday%20Afternoon%20on%20the%20Island%20of%20La%20Grande%20Jatte.png"
+    image: "/library-dispensary-preview/images/gallery/Georges%20Seurat%2C%20A%20Sunday%20Afternoon%20on%20the%20Island%20of%20La%20Grande%20Jatte.png"
   },
   {
     id: 3,
@@ -55,7 +55,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Contact for pricing",
     description: "A haunting portrayal of alienation and melancholy in Belle Époque Paris. This work captures the psychological isolation of urban life through Degas' masterful use of composition and muted palette, depicting figures lost in their own thoughts at a Parisian café.",
     category: "Historical",
-    image: "/images/gallery/L%E2%80%99%20Absinthe%20.png"
+    image: "/library-dispensary-preview/images/gallery/L%E2%80%99%20Absinthe%20.png"
   },
   {
     id: 4,
@@ -68,7 +68,7 @@ const galleryItems: ArtworkItem[] = [
     description: "Rockwell's characteristic narrative style captures quintessential American life with warmth and humor. Known for his Saturday Evening Post covers, this piece exemplifies his ability to find profound humanity in everyday moments.",
     category: "Historical",
     featured: true,
-    image: "/images/gallery/The%20lion%E2%80%99s%20share%2C%20Norman%20Rockwell.png"
+    image: "/library-dispensary-preview/images/gallery/The%20lion%E2%80%99s%20share%2C%20Norman%20Rockwell.png"
   },
   {
     id: 5,
@@ -80,7 +80,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Contact for pricing",
     description: "A masterful floral composition showcasing Schilling's expertise in botanical illustration. The intricate rendering of dahlia petals demonstrates classical still-life tradition with contemporary sensibility.",
     category: "Contemporary",
-    image: "/images/gallery/Vase%20of%20dahlias%2C%20Robert%20Schilling.png"
+    image: "/library-dispensary-preview/images/gallery/Vase%20of%20dahlias%2C%20Robert%20Schilling.png"
   },
   {
     id: 6,
@@ -92,7 +92,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Inquire",
     description: "Dutch master Raoul Hynckes (1893-1973) was renowned for his precise realist style and masterful portraiture. This work demonstrates his exceptional skill in capturing human character and emotion through meticulous technique.",
     category: "Historical",
-    image: "/images/gallery/Huldah%2C%20Raoul%20Hynckes.png"
+    image: "/library-dispensary-preview/images/gallery/Huldah%2C%20Raoul%20Hynckes.png"
   },
   {
     id: 7,
@@ -105,7 +105,7 @@ const galleryItems: ArtworkItem[] = [
     description: "Haitian-American artist Frank Louissaint's powerful portraiture reflects his commitment to representing Caribbean and African diaspora experiences. His work bridges cultural narratives with contemporary artistic expression.",
     category: "Contemporary",
     featured: true,
-    image: "/images/gallery/%2C%20Frank%20Louissaint%20(1949%E2%80%932021).png"
+    image: "/library-dispensary-preview/images/gallery/%2C%20Frank%20Louissaint%20(1949%E2%80%932021).png"
   },
   {
     id: 8,
@@ -117,7 +117,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Contact for pricing",
     description: "A mesmerizing exploration of the subconscious mind, where colors and forms echo the mysteries of the unknown, inviting viewers into a dreamlike state of contemplation.",
     category: "Abstract",
-    image: "/images/gallery/Echoes%20of%20the%20Unknown.png"
+    image: "/library-dispensary-preview/images/gallery/Echoes%20of%20the%20Unknown.png"
   },
   {
     id: 9,
@@ -129,7 +129,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Inquire",
     description: "A serene composition in shades of blue that whispers tranquility and depth, evoking the meditative qualities of water and sky through subtle tonal variations.",
     category: "Contemporary",
-    image: "/images/gallery/Whisper%20in%20Blue.png"
+    image: "/library-dispensary-preview/images/gallery/Whisper%20in%20Blue.png"
   },
   {
     id: 10,
@@ -141,7 +141,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Contact for pricing",
     description: "An explosive celebration of organic growth and transformation, where abstract forms bloom into existence, representing nature's endless creative possibilities through dynamic color and texture.",
     category: "Abstract",
-    image: "/images/gallery/Bloom%20Beyond%20Form.png"
+    image: "/library-dispensary-preview/images/gallery/Bloom%20Beyond%20Form.png"
   },
   {
     id: 11,
@@ -153,7 +153,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Inquire",
     description: "A contemplative still life that captures the essence of solitude and reflection, inviting viewers to pause and appreciate the profound beauty found in everyday moments and simple objects.",
     category: "Contemporary",
-    image: "/images/gallery/Quiet%20Table.png"
+    image: "/library-dispensary-preview/images/gallery/Quiet%20Table.png"
   },
   {
     id: 12,
@@ -165,7 +165,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Contact for pricing",
     description: "A precise ornithological study capturing the distinctive features of the Red-eyed Vireo, demonstrating the intersection of scientific observation and artistic interpretation in contemporary nature studies.",
     category: "Contemporary",
-    image: "/images/gallery/Red-eyed%20Vireo.png"
+    image: "/library-dispensary-preview/images/gallery/Red-eyed%20Vireo.png"
   },
   {
     id: 13,
@@ -177,7 +177,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Inquire",
     description: "An evocative exploration of light and shadow, creating psychological depth and mystery through bold contrasts and subtle gradations that challenge perception.",
     category: "Abstract",
-    image: "/images/gallery/Shadowed%20Presence.png"
+    image: "/library-dispensary-preview/images/gallery/Shadowed%20Presence.png"
   },
   {
     id: 14,
@@ -189,7 +189,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Contact for pricing",
     description: "A powerful tribute to the historic Bois Caïman ceremony of 1791, which sparked the Haitian Revolution. This work honors the spiritual and political significance of this pivotal moment in Caribbean and world history.",
     category: "Historical",
-    image: "/images/gallery/Bois%20Caiman%20.png"
+    image: "/library-dispensary-preview/images/gallery/Bois%20Caiman%20.png"
   },
   {
     id: 15,
@@ -201,7 +201,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Inquire",
     description: "A stunning ornithological portrait of the Golden Masked Tanager, capturing the vibrant plumage and delicate features of this South American bird in exquisite scientific detail.",
     category: "Contemporary",
-    image: "/images/gallery/Golden%20Masked%20Tanager.png"
+    image: "/library-dispensary-preview/images/gallery/Golden%20Masked%20Tanager.png"
   },
   {
     id: 16,
@@ -213,7 +213,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Contact for pricing",
     description: "A graceful watercolor study of the White Winged Dove, rendered with delicate brushwork that captures both the bird's natural beauty and its cultural symbolism of peace and renewal.",
     category: "Contemporary",
-    image: "/images/gallery/White%20Winged%20Dove%20.png"
+    image: "/library-dispensary-preview/images/gallery/White%20Winged%20Dove%20.png"
   },
   {
     id: 17,
@@ -225,7 +225,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Inquire",
     description: "A rich still life in the Dutch Golden Age tradition, celebrating abundance and hospitality through carefully arranged elements that speak to comfort, generosity, and the joy of shared meals.",
     category: "Contemporary",
-    image: "/images/gallery/Bountiful%20table%20.png"
+    image: "/library-dispensary-preview/images/gallery/Bountiful%20table%20.png"
   },
   {
     id: 18,
@@ -237,7 +237,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Contact for pricing",
     description: "A contemporary interpretation of the biblical creation narrative, rendered with classical technique while exploring themes of innocence, knowledge, and humanity's relationship with the divine.",
     category: "Historical",
-    image: "/images/gallery/Adam%20and%20Eve.png"
+    image: "/library-dispensary-preview/images/gallery/Adam%20and%20Eve.png"
   },
   {
     id: 19,
@@ -249,7 +249,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Inquire",
     description: "An artistic celebration of African geography and cultural heritage, blending cartographic precision with artistic interpretation to honor the continent's rich diversity and historical significance.",
     category: "Contemporary",
-    image: "/images/gallery/Africa%20Map.png"
+    image: "/library-dispensary-preview/images/gallery/Africa%20Map.png"
   },
   {
     id: 20,
@@ -261,7 +261,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Contact for pricing",
     description: "An artistic interpretation of global connectivity, blending traditional cartographic elements with contemporary artistic vision to explore themes of unity, diversity, and shared humanity.",
     category: "Contemporary",
-    image: "/images/gallery/World%20Map.png"
+    image: "/library-dispensary-preview/images/gallery/World%20Map.png"
   },
   {
     id: 21,
@@ -273,7 +273,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Inquire",
     description: "In the style of Maurice Utrillo, capturing the eternal bohemian spirit of Paris's historic artistic quarter with the characteristic white period palette and architectural precision.",
     category: "Contemporary",
-    image: "/images/gallery/Montmartre.png"
+    image: "/library-dispensary-preview/images/gallery/Montmartre.png"
   },
   {
     id: 22,
@@ -285,7 +285,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Contact for pricing",
     description: "An homage to Picasso's revolutionary cubist innovations, exploring fragmented forms and multiple perspectives in the master's distinctive style.",
     category: "Abstract",
-    image: "/images/gallery/Picasso.png"
+    image: "/library-dispensary-preview/images/gallery/Picasso.png"
   },
   {
     id: 23,
@@ -297,7 +297,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Inquire",
     description: "An atmospheric rendering of Paris's iconic landmark, captured with impressionistic sensitivity to light and mood, transforming architectural form into poetic expression.",
     category: "Contemporary",
-    image: "/images/gallery/Eiffel%20Tower%2C%20H%20Alex%20.png"
+    image: "/library-dispensary-preview/images/gallery/Eiffel%20Tower%2C%20H%20Alex%20.png"
   },
   {
     id: 24,
@@ -309,7 +309,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Contact for pricing",
     description: "A modern interpretation of classical still life tradition, balancing timeless compositional principles with contemporary artistic sensibility and technique.",
     category: "Contemporary",
-    image: "/images/gallery/Still%20Life.png"
+    image: "/library-dispensary-preview/images/gallery/Still%20Life.png"
   },
   {
     id: 25,
@@ -321,7 +321,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Inquire",
     description: "A vibrant celebration of nature's golden beauty, capturing the sunflower's radiant energy and symbolic optimism while honoring the great tradition of floral painting.",
     category: "Contemporary",
-    image: "/images/gallery/Sun%20Flower.png"
+    image: "/library-dispensary-preview/images/gallery/Sun%20Flower.png"
   },
   {
     id: 26,
@@ -333,7 +333,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Contact for pricing",
     description: "A tender portrayal of maternal love and divine grace in the Renaissance tradition, rendered with contemporary technique while maintaining the spiritual reverence of classical sacred art.",
     category: "Historical",
-    image: "/images/gallery/Madona%20%26%20Child%20.png"
+    image: "/library-dispensary-preview/images/gallery/Madona%20%26%20Child%20.png"
   },
   {
     id: 27,
@@ -345,7 +345,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Inquire",
     description: "Historical documentation capturing pivotal moments in American democratic tradition, preserving important scenes from congressional proceedings and political heritage.",
     category: "Historical",
-    image: "/images/gallery/Congress%20Print%20%231.png"
+    image: "/library-dispensary-preview/images/gallery/Congress%20Print%20%231.png"
   },
   {
     id: 28,
@@ -357,7 +357,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Contact for pricing",
     description: "Companion piece documenting significant moments in American legislative history, offering insight into the workings of democratic institutions and political process.",
     category: "Historical",
-    image: "/images/gallery/Congress%20Print%20%232.png"
+    image: "/library-dispensary-preview/images/gallery/Congress%20Print%20%232.png"
   },
   {
     id: 29,
@@ -369,7 +369,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Inquire",
     description: "A vibrant market scene in the Haitian naive art tradition, depicting a vegetable vendor with the characteristic bold colors and flattened perspective of Caribbean folk art.",
     category: "Contemporary",
-    image: "/images/gallery/Marchandre%20de%20legumes%20.png"
+    image: "/library-dispensary-preview/images/gallery/Marchandre%20de%20legumes%20.png"
   },
   {
     id: 30,
@@ -381,7 +381,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Contact for pricing",
     description: "A provocative contemporary piece blending street art aesthetics with gallery sensibilities, exploring themes of revolution, change, and cultural upheaval.",
     category: "Contemporary",
-    image: "/images/gallery/Heads%20will%20roll%20.png"
+    image: "/library-dispensary-preview/images/gallery/Heads%20will%20roll%20.png"
   },
   {
     id: 31,
@@ -393,7 +393,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Inquire",
     description: "An important historical document from our archival collection, preserved and presented as a testament to cultural and political heritage.",
     category: "Historical",
-    image: "/images/gallery/Document.png"
+    image: "/library-dispensary-preview/images/gallery/Document.png"
   },
   {
     id: 32,
@@ -405,7 +405,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Contact for pricing",
     description: "Inspired by Picasso's iconic dove of peace, this work continues the tradition of using art as a universal symbol for harmony and hope.",
     category: "Contemporary",
-    image: "/images/gallery/Dove.png"
+    image: "/library-dispensary-preview/images/gallery/Dove.png"
   },
   {
     id: 33,
@@ -417,7 +417,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Inquire",
     description: "An ornate decorative piece showcasing intricate patterns and embellishments, reflecting traditional craftsmanship with contemporary presentation.",
     category: "Abstract",
-    image: "/images/gallery/Embelish%20.png"
+    image: "/library-dispensary-preview/images/gallery/Embelish%20.png"
   },
   {
     id: 34,
@@ -429,7 +429,7 @@ const galleryItems: ArtworkItem[] = [
     price: "Contact for pricing",
     description: "A bold abstract work exploring color relationships and compositional dynamics through spontaneous mark-making and layered textures.",
     category: "Abstract",
-    image: "/images/gallery/Untitled%20.png"
+    image: "/library-dispensary-preview/images/gallery/Untitled%20.png"
   }
 ];
 
