@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PremiumBackground Component Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background: #1a1a1a;
+            color: white;
+        }
+
+        /* Simulating the PremiumBackground component structure */
+        .premium-bg-container {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .bg-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, #2C1F16, #3E2E23, #2C1F16);
+            opacity: 0.9;
+        }
+
+        .bg-image {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://bknddevelopment.github.io/library-dispensary-preview/images/west-orange-map-1911.jpg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.35;
+            filter: sepia(0.3) contrast(1.1) brightness(1.15);
+            animation: mapPan 45s ease-in-out infinite;
+        }
+
+        @keyframes mapPan {
+            0% { transform: scale(1) translate(0); }
+            25% { transform: scale(1.05) translate(-2%, -1%); }
+            50% { transform: scale(1.1) translate(-3%, -2%); }
+            75% { transform: scale(1.05) translate(-1%, -1%); }
+            100% { transform: scale(1) translate(0); }
+        }
+
+        .content {
+            position: relative;
+            z-index: 10;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            max-width: 300px;
+        }
+
+        .success { color: #4ade80; }
+        .error { color: #f87171; }
+        .info { color: #60a5fa; }
+    </style>
+</head>
+<body>
+    <div class="premium-bg-container">
+        <!-- Base gradient layer -->
+        <div class="bg-gradient"></div>
+
+        <!-- Animated background image -->
+        <div class="bg-image" id="bgImage"></div>
+
+        <!-- Content layer -->
+        <div class="content">
+            <h1>PremiumBackground Component Test</h1>
+            <p>Testing the map background rendering...</p>
+        </div>
+    </div>
+
+    <div class="status" id="status">
+        <h3>Status:</h3>
+        <div id="statusContent"></div>
+    </div>
+
+    <script>
+        const statusEl = document.getElementById('statusContent');
+        const bgImageEl = document.getElementById('bgImage');
+        const imageUrl = 'https://bknddevelopment.github.io/library-dispensary-preview/images/west-orange-map-1911.jpg';
+
+        // Test 1: Check if image URL is accessible
+        fetch(imageUrl, { method: 'HEAD' })
+            .then(response => {
+                if (response.ok) {
+                    statusEl.innerHTML += '<p class="success">✓ Image URL is accessible</p>';
+                } else {
+                    statusEl.innerHTML += '<p class="error">✗ Image URL returned ' + response.status + '</p>';
+                }
+            })
+            .catch(error => {
+                statusEl.innerHTML += '<p class="error">✗ Failed to fetch image: ' + error.message + '</p>';
+            });
+
+        // Test 2: Load image directly
+        const img = new Image();
+        img.onload = function() {
+            statusEl.innerHTML += '<p class="success">✓ Image loaded successfully</p>';
+            statusEl.innerHTML += '<p class="info">Image dimensions: ' + img.width + 'x' + img.height + '</p>';
+        };
+        img.onerror = function() {
+            statusEl.innerHTML += '<p class="error">✗ Image failed to load</p>';
+        };
+        img.src = imageUrl;
+
+        // Test 3: Check computed styles
+        setTimeout(() => {
+            const computedStyle = window.getComputedStyle(bgImageEl);
+            const bgImage = computedStyle.backgroundImage;
+
+            if (bgImage && bgImage !== 'none') {
+                statusEl.innerHTML += '<p class="success">✓ Background-image CSS is applied</p>';
+                statusEl.innerHTML += '<p class="info">Background: ' + bgImage.substring(0, 100) + '...</p>';
+            } else {
+                statusEl.innerHTML += '<p class="error">✗ No background-image CSS found</p>';
+            }
+
+            // Check opacity
+            const opacity = computedStyle.opacity;
+            statusEl.innerHTML += '<p class="info">Opacity: ' + opacity + '</p>';
+
+            // Check z-index layering
+            const zIndex = computedStyle.zIndex;
+            statusEl.innerHTML += '<p class="info">Z-index: ' + (zIndex || 'auto') + '</p>';
+        }, 1000);
+
+        // Test 4: Check if the actual site has the component
+        fetch('https://bknddevelopment.github.io/library-dispensary-preview/')
+            .then(response => response.text())
+            .then(html => {
+                // Check for PremiumBackground related classes/elements
+                const hasBackgroundDiv = html.includes('absolute inset-0');
+                const hasMapReference = html.includes('west-orange-map');
+                const hasPremiumBgClass = html.includes('premium') || html.includes('Premium');
+
+                statusEl.innerHTML += '<h4>Live Site Analysis:</h4>';
+                statusEl.innerHTML += '<p class="' + (hasBackgroundDiv ? 'success' : 'error') + '">' +
+                    (hasBackgroundDiv ? '✓' : '✗') + ' Has background div structure</p>';
+                statusEl.innerHTML += '<p class="' + (hasMapReference ? 'success' : 'error') + '">' +
+                    (hasMapReference ? '✓' : '✗') + ' Has map image reference</p>';
+                statusEl.innerHTML += '<p class="' + (hasPremiumBgClass ? 'success' : 'error') + '">' +
+                    (hasPremiumBgClass ? '✓' : '✗') + ' Has PremiumBackground reference</p>';
+            })
+            .catch(error => {
+                statusEl.innerHTML += '<p class="error">✗ Failed to fetch live site: ' + error.message + '</p>';
+            });
+    </script>
+</body>
+</html>

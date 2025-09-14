@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Map Background</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .test-container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            background: #2C1F16;
+        }
+        .background-test {
+            position: absolute;
+            inset: 0;
+            opacity: 0.35;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            filter: sepia(0.3) contrast(1.1) brightness(1.15);
+        }
+        .info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            z-index: 10;
+        }
+        .test-github {
+            background-image: url('/library-dispensary-preview/images/west-orange-map-1911.jpg');
+        }
+        .test-local {
+            background-image: url('/images/west-orange-map-1911.jpg');
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="info">
+            <h2>Map Background Test</h2>
+            <p><strong>Current URL:</strong> <span id="current-url"></span></p>
+            <p><strong>Hostname:</strong> <span id="hostname"></span></p>
+            <p><strong>Is GitHub Pages:</strong> <span id="is-github"></span></p>
+            <p><strong>Image Path Used:</strong> <span id="image-path"></span></p>
+            <button onclick="togglePath()">Toggle Path</button>
+        </div>
+        <div id="bg-test" class="background-test test-local"></div>
+    </div>
+
+    <script>
+        // Display current environment info
+        document.getElementById('current-url').textContent = window.location.href;
+        document.getElementById('hostname').textContent = window.location.hostname;
+
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        document.getElementById('is-github').textContent = isGitHubPages ? 'Yes' : 'No';
+
+        // Function to get asset path (same logic as in component)
+        function getAssetPath(path) {
+            const isGitHubPages = window.location.hostname.includes('github.io');
+            const pathPrefix = isGitHubPages ? '/library-dispensary-preview' : '';
+            return `${pathPrefix}${path}`;
+        }
+
+        // Set the correct path
+        const imagePath = getAssetPath('/images/west-orange-map-1911.jpg');
+        document.getElementById('image-path').textContent = imagePath;
+        document.getElementById('bg-test').style.backgroundImage = `url('${imagePath}')`;
+
+        // Toggle function for testing
+        let useGitHub = false;
+        function togglePath() {
+            useGitHub = !useGitHub;
+            const testPath = useGitHub
+                ? '/library-dispensary-preview/images/west-orange-map-1911.jpg'
+                : '/images/west-orange-map-1911.jpg';
+            document.getElementById('bg-test').style.backgroundImage = `url('${testPath}')`;
+            document.getElementById('image-path').textContent = testPath;
+        }
+
+        // Check if image loads
+        const img = new Image();
+        img.onload = function() {
+            console.log('✅ Image loaded successfully:', imagePath);
+        };
+        img.onerror = function() {
+            console.error('❌ Image failed to load:', imagePath);
+        };
+        img.src = imagePath;
+    </script>
+</body>
+</html>

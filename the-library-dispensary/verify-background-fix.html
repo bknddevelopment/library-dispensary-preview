@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Fix Verification</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+            font-family: monospace;
+        }
+        .status-card {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .success { color: #4ade80; }
+        .error { color: #f87171; }
+        .warning { color: #fbbf24; }
+        .info { color: #60a5fa; }
+        h1 { color: #fbbf24; }
+        pre {
+            background: #000;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .test-frame {
+            width: 100%;
+            height: 600px;
+            border: 2px solid #444;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Background Fix Verification Report</h1>
+
+    <div class="status-card">
+        <h2>Test Results:</h2>
+        <div id="results">Loading...</div>
+    </div>
+
+    <div class="status-card">
+        <h2>Live Site Preview:</h2>
+        <iframe
+            src="https://bknddevelopment.github.io/library-dispensary-preview/"
+            class="test-frame"
+            id="siteFrame"
+        ></iframe>
+    </div>
+
+    <script>
+        const results = document.getElementById('results');
+        const siteUrl = 'https://bknddevelopment.github.io/library-dispensary-preview';
+        const imageUrl = 'https://bknddevelopment.github.io/library-dispensary-preview/images/west-orange-map-1911.jpg';
+
+        async function runTests() {
+            let report = '';
+
+            // Test 1: Check if image is accessible
+            try {
+                const imgResponse = await fetch(imageUrl, { method: 'HEAD' });
+                if (imgResponse.ok) {
+                    report += '<p class="success">✅ Map image is accessible at: ' + imageUrl + '</p>';
+                } else {
+                    report += '<p class="error">❌ Map image returned status: ' + imgResponse.status + '</p>';
+                }
+            } catch (e) {
+                report += '<p class="error">❌ Failed to fetch image: ' + e.message + '</p>';
+            }
+
+            // Test 2: Check JavaScript bundle
+            try {
+                const jsFiles = [
+                    '/_next/static/chunks/pages/index-c6df665a6819f488.js',
+                    '/_next/static/chunks/pages/index-cf71de57309198e2.js',
+                    '/_next/static/chunks/pages/index-da8bae0a62b08288.js'
+                ];
+
+                let jsFound = false;
+                for (const jsFile of jsFiles) {
+                    try {
+                        const jsResponse = await fetch(siteUrl + jsFile);
+                        if (jsResponse.ok) {
+                            const jsText = await jsResponse.text();
+                            if (jsText.includes('west-orange-map')) {
+                                report += '<p class="success">✅ Map reference found in JS bundle: ' + jsFile + '</p>';
+
+                                // Check for the full path
+                                if (jsText.includes('library-dispensary-preview/images')) {
+                                    report += '<p class="success">✅ Full path with basePath found in JS</p>';
+                                } else if (jsText.includes('/images/west-orange-map')) {
+                                    report += '<p class="warning">⚠️ Path found but without basePath prefix</p>';
+                                } else {
+                                    report += '<p class="warning">⚠️ Only filename found, not full path</p>';
+                                }
+
+                                jsFound = true;
+                                break;
+                            }
+                        }
+                    } catch (e) {
+                        // Try next file
+                    }
+                }
+
+                if (!jsFound) {
+                    report += '<p class="error">❌ No map reference found in JavaScript bundles</p>';
+                }
+            } catch (e) {
+                report += '<p class="error">❌ Failed to check JS bundles: ' + e.message + '</p>';
+            }
+
+            // Test 3: Check HTML for background elements
+            try {
+                const htmlResponse = await fetch(siteUrl);
+                const html = await htmlResponse.text();
+
+                // Check for PremiumBackground rendering
+                const hasInsetDiv = html.includes('absolute inset-0');
+                const hasGradientDiv = html.includes('bg-gradient-to-b');
+
+                report += '<h3>HTML Structure:</h3>';
+                report += '<p class="' + (hasInsetDiv ? 'success' : 'error') + '">' +
+                    (hasInsetDiv ? '✅' : '❌') + ' Has absolute positioned background divs</p>';
+                report += '<p class="' + (hasGradientDiv ? 'success' : 'error') + '">' +
+                    (hasGradientDiv ? '✅' : '❌') + ' Has gradient background classes</p>';
+
+                // Check if background is inline in HTML
+                if (html.includes('background-image') && html.includes('west-orange-map')) {
+                    report += '<p class="success">✅ Background image is inline in HTML</p>';
+                } else {
+                    report += '<p class="warning">⚠️ Background image is not inline in HTML (set via JavaScript)</p>';
+                }
+            } catch (e) {
+                report += '<p class="error">❌ Failed to fetch HTML: ' + e.message + '</p>';
+            }
+
+            // Test 4: Runtime check using iframe
+            setTimeout(() => {
+                try {
+                    const iframe = document.getElementById('siteFrame');
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+                    // Try to find elements with background
+                    const allElements = iframeDoc.querySelectorAll('*');
+                    let bgFound = false;
+
+                    allElements.forEach(el => {
+                        const style = window.getComputedStyle(el);
+                        if (style.backgroundImage && style.backgroundImage.includes('west-orange-map')) {
+                            bgFound = true;
+                            report += '<p class="success">✅ Background image is applied at runtime!</p>';
+                            report += '<pre>Element: ' + el.className + '\nBackground: ' + style.backgroundImage.substring(0, 100) + '...</pre>';
+                        }
+                    });
+
+                    if (!bgFound) {
+                        report += '<p class="error">❌ No element with map background found at runtime</p>';
+                    }
+                } catch (e) {
+                    report += '<p class="warning">⚠️ Cannot access iframe content (CORS)</p>';
+                }
+
+                results.innerHTML = report;
+            }, 3000);
+
+            // Initial report
+            results.innerHTML = report + '<p class="info">⏳ Checking runtime rendering...</p>';
+        }
+
+        // Run tests
+        runTests();
+
+        // Add manual refresh button
+        setTimeout(() => {
+            results.innerHTML += '<br><button onclick="location.reload()" style="padding: 10px 20px; background: #444; color: white; border: 1px solid #666; border-radius: 4px; cursor: pointer;">🔄 Refresh Tests</button>';
+        }, 4000);
+    </script>
+</body>
+</html>

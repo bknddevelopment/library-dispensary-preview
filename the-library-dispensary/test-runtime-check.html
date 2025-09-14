@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Runtime Background Check</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        pre {
+            background: #333;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .success { color: #4ade80; }
+        .error { color: #f87171; }
+        .warning { color: #fbbf24; }
+        .info { color: #60a5fa; }
+    </style>
+</head>
+<body>
+    <h1>The Library Dispensary - Runtime Background Check</h1>
+    <div id="results"></div>
+
+    <script>
+        const results = document.getElementById('results');
+        const siteUrl = 'https://bknddevelopment.github.io/library-dispensary-preview';
+
+        async function checkSite() {
+            results.innerHTML = '<p class="info">Fetching site content...</p>';
+
+            try {
+                const response = await fetch(siteUrl);
+                const html = await response.text();
+
+                // Create a DOM parser to analyze the HTML
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+
+                let report = '<h2>Analysis Results:</h2>';
+
+                // Check for PremiumBackground elements
+                const backgroundDivs = doc.querySelectorAll('[class*="absolute inset-0"]');
+                report += `<p class="info">Found ${backgroundDivs.length} potential background elements</p>`;
+
+                // Check for image elements
+                const images = doc.querySelectorAll('img');
+                let mapImageFound = false;
+                images.forEach(img => {
+                    if (img.src && img.src.includes('west-orange-map')) {
+                        mapImageFound = true;
+                        report += `<p class="success">✓ Map image element found: ${img.src}</p>`;
+                        report += `<p>Image classes: ${img.className || 'none'}</p>`;
+                        report += `<p>Image alt: ${img.alt || 'none'}</p>`;
+                    }
+                });
+
+                if (!mapImageFound) {
+                    report += `<p class="error">✗ No map image element found in HTML</p>`;
+                }
+
+                // Check for background-image styles
+                const allElements = doc.querySelectorAll('*');
+                let backgroundImageFound = false;
+                allElements.forEach(el => {
+                    const style = el.getAttribute('style');
+                    if (style && style.includes('background-image') && style.includes('west-orange-map')) {
+                        backgroundImageFound = true;
+                        report += `<p class="success">✓ Background-image style found on element</p>`;
+                        report += `<pre>${style}</pre>`;
+                    }
+                });
+
+                if (!backgroundImageFound) {
+                    report += `<p class="warning">⚠ No inline background-image styles with map found</p>`;
+                }
+
+                // Check CSS files for background references
+                const cssLinks = doc.querySelectorAll('link[rel="stylesheet"]');
+                report += `<p class="info">Found ${cssLinks.length} CSS files</p>`;
+
+                for (const link of cssLinks) {
+                    const cssUrl = new URL(link.href, siteUrl);
+                    try {
+                        const cssResponse = await fetch(cssUrl);
+                        const cssText = await cssResponse.text();
+
+                        if (cssText.includes('west-orange-map')) {
+                            report += `<p class="success">✓ Map reference found in CSS: ${link.href}</p>`;
+                        }
+
+                        // Check for background-related classes
+                        const bgClasses = cssText.match(/\.bg-[^\s{]+/g) || [];
+                        if (bgClasses.length > 0) {
+                            report += `<p class="info">Background classes found: ${bgClasses.slice(0, 10).join(', ')}...</p>`;
+                        }
+                    } catch (e) {
+                        report += `<p class="error">Failed to fetch CSS: ${link.href}</p>`;
+                    }
+                }
+
+                // Check JavaScript for PremiumBackground
+                const scriptTags = doc.querySelectorAll('script[src]');
+                report += `<p class="info">Checking ${scriptTags.length} JavaScript files...</p>`;
+
+                let jsWithPremiumBg = 0;
+                for (const script of scriptTags) {
+                    const scriptUrl = new URL(script.src, siteUrl);
+                    try {
+                        const jsResponse = await fetch(scriptUrl);
+                        const jsText = await jsResponse.text();
+
+                        if (jsText.includes('PremiumBackground') || jsText.includes('west-orange-map')) {
+                            jsWithPremiumBg++;
+                            report += `<p class="success">✓ PremiumBackground/map found in: ${script.src.split('/').pop()}</p>`;
+                        }
+                    } catch (e) {
+                        console.error('Failed to fetch script:', script.src);
+                    }
+                }
+
+                report += `<p class="info">JavaScript files with PremiumBackground: ${jsWithPremiumBg}</p>`;
+
+                // Final diagnosis
+                report += '<h2>Diagnosis:</h2>';
+                if (!mapImageFound && !backgroundImageFound) {
+                    report += `<p class="error">❌ The background image is NOT being rendered in the HTML at all.</p>`;
+                    report += `<p class="warning">This suggests the PremiumBackground component is either:</p>`;
+                    report += `<ul>
+                        <li>Not being rendered (conditional rendering issue)</li>
+                        <li>Being tree-shaken out during build</li>
+                        <li>Failing silently at runtime</li>
+                    </ul>`;
+                } else if (mapImageFound || backgroundImageFound) {
+                    report += `<p class="success">✓ Background element exists in HTML</p>`;
+                    report += `<p class="warning">The issue might be CSS-related (z-index, opacity, etc.)</p>`;
+                }
+
+                results.innerHTML = report;
+
+            } catch (error) {
+                results.innerHTML = `<p class="error">Error: ${error.message}</p>`;
+            }
+        }
+
+        checkSite();
+    </script>
+</body>
+</html>

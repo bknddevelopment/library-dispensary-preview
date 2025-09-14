@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Map Background Fix</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 800px;
+            width: 90%;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .status-item {
+            background: #f8f9fa;
+            border-left: 4px solid #dee2e6;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .status-item.success {
+            border-left-color: #28a745;
+            background: #d4edda;
+        }
+        .status-item.error {
+            border-left-color: #dc3545;
+            background: #f8d7da;
+        }
+        .status-item.warning {
+            border-left-color: #ffc107;
+            background: #fff3cd;
+        }
+        .label {
+            font-weight: bold;
+            color: #495057;
+            display: inline-block;
+            width: 200px;
+        }
+        .value {
+            color: #212529;
+            font-family: 'Courier New', monospace;
+        }
+        .test-image {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .test-image img {
+            max-width: 100%;
+            height: 200px;
+            object-fit: contain;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #5a67d8;
+        }
+        .instructions {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            color: #495057;
+        }
+        .instructions ol {
+            color: #6c757d;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🗺️ West Orange Map Background Verification</h1>
+
+        <div id="status-list">
+            <div class="status-item" id="location-check">
+                <span class="label">Current Location:</span>
+                <span class="value" id="location-value">Checking...</span>
+            </div>
+
+            <div class="status-item" id="github-check">
+                <span class="label">GitHub Pages Detection:</span>
+                <span class="value" id="github-value">Checking...</span>
+            </div>
+
+            <div class="status-item" id="path-check">
+                <span class="label">Computed Image Path:</span>
+                <span class="value" id="path-value">Calculating...</span>
+            </div>
+
+            <div class="status-item" id="load-check">
+                <span class="label">Image Load Status:</span>
+                <span class="value" id="load-value">Testing...</span>
+            </div>
+        </div>
+
+        <div class="test-image">
+            <h3>Test Image Preview:</h3>
+            <img id="test-img" alt="West Orange Map 1911" />
+            <p id="img-status"></p>
+        </div>
+
+        <button onclick="runTest()">🔄 Re-run Test</button>
+
+        <div class="instructions">
+            <h3>📋 How to Test the Fix:</h3>
+            <ol>
+                <li><strong>Test Locally:</strong> Open this file directly in your browser. The image should load from <code>/images/west-orange-map-1911.jpg</code></li>
+                <li><strong>Test on GitHub Pages:</strong> Upload this file to the repository and access it at:
+                    <br><code>https://bknddevelopment.github.io/library-dispensary-preview/verify-fix.html</code>
+                    <br>The image should load from <code>/library-dispensary-preview/images/west-orange-map-1911.jpg</code>
+                </li>
+                <li><strong>Verify Main Site:</strong> Visit the main site and check if the hero section has the map background visible (with sepia filter and opacity)</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        function getAssetPath(path) {
+            const isGitHubPages = window.location.hostname.includes('github.io');
+            const pathPrefix = isGitHubPages ? '/library-dispensary-preview' : '';
+            return `${pathPrefix}${path}`;
+        }
+
+        function runTest() {
+            // Update location
+            const locationEl = document.getElementById('location-value');
+            const locationCheck = document.getElementById('location-check');
+            locationEl.textContent = window.location.href;
+            locationCheck.className = 'status-item success';
+
+            // Check GitHub Pages
+            const isGitHubPages = window.location.hostname.includes('github.io');
+            const githubEl = document.getElementById('github-value');
+            const githubCheck = document.getElementById('github-check');
+            githubEl.textContent = isGitHubPages ? 'Yes (GitHub Pages detected)' : 'No (Local or custom domain)';
+            githubCheck.className = isGitHubPages ? 'status-item warning' : 'status-item success';
+
+            // Compute path
+            const imagePath = getAssetPath('/images/west-orange-map-1911.jpg');
+            const pathEl = document.getElementById('path-value');
+            const pathCheck = document.getElementById('path-check');
+            pathEl.textContent = imagePath;
+            pathCheck.className = 'status-item success';
+
+            // Test image load
+            const testImg = document.getElementById('test-img');
+            const loadEl = document.getElementById('load-value');
+            const loadCheck = document.getElementById('load-check');
+            const imgStatus = document.getElementById('img-status');
+
+            testImg.src = imagePath;
+
+            testImg.onload = function() {
+                loadEl.textContent = '✅ Image loaded successfully!';
+                loadCheck.className = 'status-item success';
+                imgStatus.textContent = `Image dimensions: ${testImg.naturalWidth}x${testImg.naturalHeight}px`;
+                imgStatus.style.color = '#28a745';
+            };
+
+            testImg.onerror = function() {
+                loadEl.textContent = '❌ Failed to load image';
+                loadCheck.className = 'status-item error';
+                imgStatus.textContent = 'Error: Could not load image from ' + imagePath;
+                imgStatus.style.color = '#dc3545';
+            };
+        }
+
+        // Run test on page load
+        window.addEventListener('load', runTest);
+    </script>
+</body>
+</html>

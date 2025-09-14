@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { getAssetPath } from "../lib/utils";
 
 interface PremiumBackgroundProps {
   variant?: "hero" | "section" | "dark" | "map";
@@ -18,26 +19,20 @@ export default function PremiumBackground({
 }: PremiumBackgroundProps) {
   const [scrollY, setScrollY] = useState(0);
   const [mounted, setMounted] = useState(false);
-  const [backgroundImage, setBackgroundImage] = useState<string>("");
+
+  // Use the getAssetPath utility to handle basePath correctly
+  const backgroundImages = {
+    hero: getAssetPath("/images/library-hero-bg.jpg"),
+    section: getAssetPath("/images/library-section-bg.jpg"),
+    dark: getAssetPath("/images/dark-wood-bg.jpg"),
+    map: getAssetPath("/images/west-orange-map-1911.jpg")
+  };
+
+  // Get the initial background image URL
+  const backgroundImage = backgroundImages[variant];
 
   useEffect(() => {
     setMounted(true);
-
-    // Set the background image URL after mounting to avoid hydration mismatch
-    const getAssetPath = (path: string) => {
-      const isGitHubPages = window.location.hostname.includes('github.io');
-      const pathPrefix = isGitHubPages ? '/library-dispensary-preview' : '';
-      return `${pathPrefix}${path}`;
-    };
-
-    const backgroundImages = {
-      hero: getAssetPath("/images/library-hero-bg.jpg"),
-      section: getAssetPath("/images/library-section-bg.jpg"),
-      dark: getAssetPath("/images/dark-wood-bg.jpg"),
-      map: getAssetPath("/images/west-orange-map-1911.jpg")
-    };
-
-    setBackgroundImage(backgroundImages[variant]);
 
     if (enableParallax) {
       const handleScroll = () => {

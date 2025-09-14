@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direct Map Background Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .test-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            background: #2C1F16;
+        }
+        .map-background {
+            position: absolute;
+            inset: 0;
+            background-image: url('/library-dispensary-preview/images/west-orange-map-1911.jpg');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.35;
+            filter: sepia(0.3) contrast(1.1) brightness(1.15);
+        }
+        .content {
+            position: relative;
+            z-index: 10;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin-top: 50px;
+        }
+        .status {
+            background: rgba(0,0,0,0.5);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="map-background"></div>
+        <div class="content">
+            <h1>Testing West Orange 1911 Map Background</h1>
+            <div class="status">
+                <h2>Direct Image Test:</h2>
+                <img src="/library-dispensary-preview/images/west-orange-map-1911.jpg"
+                     alt="West Orange Map 1911"
+                     onload="document.getElementById('img-status').innerHTML = '✅ Image loaded successfully!'"
+                     onerror="document.getElementById('img-status').innerHTML = '❌ Image failed to load: ' + this.src">
+                <p id="img-status">Loading image...</p>
+
+                <h3>Expected Path:</h3>
+                <code>/library-dispensary-preview/images/west-orange-map-1911.jpg</code>
+
+                <h3>Full URL:</h3>
+                <code id="full-url"></code>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Show the full URL being used
+        const baseUrl = window.location.origin;
+        const imagePath = '/library-dispensary-preview/images/west-orange-map-1911.jpg';
+        document.getElementById('full-url').textContent = baseUrl + imagePath;
+
+        // Test if the background CSS is applied
+        const mapDiv = document.querySelector('.map-background');
+        const computedStyle = window.getComputedStyle(mapDiv);
+        const bgImage = computedStyle.backgroundImage;
+
+        console.log('Background image CSS value:', bgImage);
+        console.log('Window location:', window.location);
+        console.log('Expected image URL:', baseUrl + imagePath);
+    </script>
+</body>
+</html>
