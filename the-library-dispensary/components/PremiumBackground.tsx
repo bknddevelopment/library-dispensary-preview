@@ -10,34 +10,47 @@ interface PremiumBackgroundProps {
   children?: React.ReactNode;
 }
 
-export default function PremiumBackground({ 
-  variant = "hero", 
-  enableParallax = true, 
+export default function PremiumBackground({
+  variant = "hero",
+  enableParallax = true,
   enableKenBurns = true,
-  children 
+  children
 }: PremiumBackgroundProps) {
   const [scrollY, setScrollY] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const [backgroundImage, setBackgroundImage] = useState<string>("");
 
   useEffect(() => {
     setMounted(true);
-    
+
+    // Set the background image URL after mounting to avoid hydration mismatch
+    const getAssetPath = (path: string) => {
+      const isGitHubPages = window.location.hostname.includes('github.io');
+      const pathPrefix = isGitHubPages ? '/library-dispensary-preview' : '';
+      return `${pathPrefix}${path}`;
+    };
+
+    const backgroundImages = {
+      hero: getAssetPath("/images/library-hero-bg.jpg"),
+      section: getAssetPath("/images/library-section-bg.jpg"),
+      dark: getAssetPath("/images/dark-wood-bg.jpg"),
+      map: getAssetPath("/images/west-orange-map-1911.jpg")
+    };
+
+    setBackgroundImage(backgroundImages[variant]);
+
     if (enableParallax) {
       const handleScroll = () => {
         setScrollY(window.scrollY);
       };
-      
+
       window.addEventListener("scroll", handleScroll, { passive: true });
       return () => window.removeEventListener("scroll", handleScroll);
     }
-  }, [enableParallax]);
+  }, [enableParallax, variant]);
 
-  const backgroundImages = {
-    hero: "/library-dispensary-preview/images/library-hero-bg.jpg",
-    section: "/library-dispensary-preview/images/library-section-bg.jpg",
-    dark: "/library-dispensary-preview/images/dark-wood-bg.jpg",
-    map: "/library-dispensary-preview/images/west-orange-map-1911.jpg"
-  };
+  // Use a fallback gradient if no image is loaded yet
+  const fallbackGradient = "linear-gradient(to bottom, #2C1F16, #3E2E23, #2C1F16)";
 
   const parallaxOffset = enableParallax ? scrollY * 0.5 : 0;
 
@@ -54,12 +67,12 @@ export default function PremiumBackground({
           willChange: 'transform',
         }}
       >
-        <div 
+        <div
           className={`absolute inset-0 ${variant === 'map' ? 'bg-contain bg-no-repeat bg-center' : 'bg-cover bg-center'} ${variant === 'map' ? 'opacity-35' : 'opacity-30'}`}
           style={{
-            backgroundImage: `url('${backgroundImages[variant]}')`,
-            filter: variant === 'map' 
-              ? 'sepia(0.3) contrast(1.1) brightness(1.15)' 
+            backgroundImage: backgroundImage ? `url('${backgroundImage}')` : fallbackGradient,
+            filter: variant === 'map'
+              ? 'sepia(0.3) contrast(1.1) brightness(1.15)'
               : 'sepia(0.3) contrast(1.2)',
           }}
         />
